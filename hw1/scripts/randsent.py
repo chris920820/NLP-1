@@ -66,21 +66,6 @@ class sent_generator:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 parser = argparse.ArgumentParser(description = "The script read grammar file and "
 								 "produce random generated sentences. e.g.: "
 								 "randsent.py [-n 10] <grammar-file> (default num of "
