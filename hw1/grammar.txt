@@ -21,7 +21,7 @@
 
 3	ROOT	S .
 2	ROOT	S !
-1	ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
+10	ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
 
 # The basic grammar rules.  Here's what the abbreviations stand for:
 #    S  = sentence
@@ -63,6 +63,8 @@
 1	Verb	ate
 1	Verb	sighed
 
+
+
 1	Det	the
 1	Det	a
 1	Det	every
@@ -70,10 +72,9 @@
 1	Noun	president
 1	Noun	sandwich
 1	Noun	pickle
-1	Noun	chief of staff
+10	Noun	chief of staff
 1	Noun	floor
 1	Noun	Sally
-10000	Noun	Chenxi
 
 1	Adj	fine
 1	Adj	delicious

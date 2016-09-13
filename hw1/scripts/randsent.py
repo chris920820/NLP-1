@@ -45,23 +45,41 @@ class sent_generator:
 				self.prob[symbol].append([RHS, accumulated_prob])
 
 	# We will call this 'rewrite' function recursively to rewrite a sentence
-	# according to pre-computed probability
-	def rewrite(self, syms):
+	# and the tree representation according to pre-computed probability
+	# 'res' is vanilla printed version and 'rep' means tree representation
+	def rewrite(self, syms, num_space):
 		res = []
-		for sym in syms:
-			if sym in self.nonterminals:
+		rep = ""
+		for idx in range(len(syms)):
+			if syms[idx] in self.nonterminals:
 				rn = random.random()
-				for RHS, prob in self.prob[sym]:
+				for RHS, prob in self.prob[syms[idx]]:
 					if prob > rn:
 						if self.verbose:
-							info = "{0} -> {1} ".format(sym, str(RHS) )
+							info = "{0} -> {1} ".format(syms[idx], str(RHS) )
 							print info
-						res += self.rewrite(RHS)
-						break
-			else:
-				res.append(sym)
-		return res
 
+						this_level = "({0} ".format(syms[idx])
+						if idx != 0:
+							if rep[-1] == '\n':
+								rep += num_space * " "
+							# Accumulate number of space to keep format pretty
+							else:
+								num_space += len(this_level)
+
+						rep += this_level
+						rewritten = self.rewrite(RHS, num_space + len(this_level))
+						res += rewritten[0]
+						rep += rewritten[1].strip() + ")\n"
+						break
+
+			else:
+				res.append(syms[idx])
+				rep += " " * num_space + syms[idx] + "\n"
+		return [res,rep]
+
+	def pprint(self, rep):
+		pass
 
 
 
@@ -75,6 +93,9 @@ parser.add_argument("-n", "--num-sentences", default = 1,
 					help = "Specify num of sentences want to be generated")
 parser.add_argument("-v", action = "store_true", default = False,
 					help = "this option can print some information for insight or debug")
+parser.add_argument("-t", action = "store_true", default = False,
+					help = "by turning this option on, instead of printing sentences, "
+					"it prints parse tree representation" )
 parser.add_argument("grammar_file",
 					help = "Speicify the grammar file")
 
@@ -82,7 +103,16 @@ args = parser.parse_args()
 my_generator = sent_generator(args.grammar_file, verbose = args.v)
 
 for num_sen in range(int(args.num_sentences)):
-	print " ".join( my_generator.rewrite(['ROOT']) )
+	sens = my_generator.rewrite(['ROOT'],0)
+	if args.t:
+		print sens[1]
+		print " ".join( sens[0] )
+	else:
+		print " ".join( sens[0] )
+
+
+
+
 
 
 
