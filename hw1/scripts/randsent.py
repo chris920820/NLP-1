@@ -100,7 +100,7 @@ parser.add_argument("num_sentences", default = 1,
 					help = "Specify num of sentences want to be generated")
 
 args = parser.parse_args()
-my_generator = sent_generator("../" + args.grammar_file + ".txt", verbose = args.v)
+my_generator = sent_generator( args.grammar_file, verbose = args.v)
 
 for num_sen in range(int(args.num_sentences)):
 	sens = my_generator.rewrite(['ROOT'],0)

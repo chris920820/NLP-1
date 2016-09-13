@@ -19,9 +19,9 @@
 
 # Rules for creating full sentences.
 
-3	ROOT	S .
-2	ROOT	S !
-10	ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
+4	ROOT	S .
+1	ROOT	S !
+1	ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
 
 # The basic grammar rules.  Here's what the abbreviations stand for:
 #    S  = sentence
@@ -33,11 +33,11 @@
 #    Adj = adjective
 
 1	S	NP VP
-5	VP	Verb NP
+5	VP	VBT NP
 1	VP	VP CC VP
-1	VP	Verb
-1	VP	Verb IN S
-1	VP	Verb PP
+1	VP	VBI
+1	VP	VBT IN S
+1	VP	VBI PP
 
 
 
@@ -55,13 +55,21 @@
 # terminals, like "chief of staff") is called a "preterminal."  Notice
 # that a preterminal is a special kind of nonterminal.
 
-1	Verb	rate
-1	Verb	wanted
-1	Verb	kissed
-1	Verb	understood
-1	Verb	pickled
-1	Verb	ate
-1	Verb	sighed
+
+# We can sub-divide verb in to transitive verb (VBT) and in-transitive verb (VBI)
+# Note, many of them can be VBI and VBT at the same time
+1	VBT	rate
+1	VBT	wanted
+1	VBT	kissed
+1	VBT	understood
+1	VBT	pickled
+1	VBT	ate
+
+
+1	VBI	kissed
+1	VBI	understood
+1	VBI	ate
+1	VBI	sighed
 
 
 
@@ -72,7 +80,7 @@
 1	Noun	president
 1	Noun	sandwich
 1	Noun	pickle
-10	Noun	chief of staff
+1	Noun	chief of staff
 1	Noun	floor
 1	Noun	Sally
 
